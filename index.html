@@ -8,7 +8,7 @@
     <title>Résumé</title>
     <script>
         (function () {
-            var stored = localStorage.getItem("theme");
+            const stored = localStorage.getItem("theme");
             if (stored === "dark" || stored === "light") {
                 document.documentElement.setAttribute("data-theme", stored);
             }
@@ -16,6 +16,12 @@
     </script>
 </head>
 <body>
+    <!--
+        Hey, curious dev! 👋 Thanks for reading the source.
+        This résumé is hand-built with plain HTML/CSS/JS — no frameworks, no build step,
+        and (allegedly) no bugs. If you're hiring for QA, you just proved you read the
+        fine print. 🐞
+    -->
     <main>
         <div class="resume">
             <div class="container">
@@ -83,9 +89,11 @@
                         <div class="contact-info__block contact-info__block--center">
                             <img
                                 class="contact-info__avatar"
+                                id="avatar"
                                 src="assets/avatar.webp"
                                 alt="Avatar"
                             />
+                            <p class="avatar-caption" id="avatar-caption">Certified bug hunter 🐞</p>
                         </div>
 
                         <div class="contact-info__block contact-info__block--right">
@@ -369,27 +377,18 @@
         </svg>
     </button>
 
-    <script>
-        (function () {
-            var toggle = document.getElementById("theme-toggle");
-            var root = document.documentElement;
+    <div class="toast" id="test-suite-toast" aria-live="polite">
+        <div class="toast__title">Running test suite...</div>
+        <div class="toast__bar">
+            <div class="toast__bar-fill" id="test-suite-bar-fill"></div>
+        </div>
+        <div class="toast__result" id="test-suite-result">3 passed, 0 failed ✅</div>
+    </div>
 
-            function currentTheme() {
-                var attr = root.getAttribute("data-theme");
-                if (attr === "dark" || attr === "light") {
-                    return attr;
-                }
-                return window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ? "dark"
-                    : "light";
-            }
+    <div class="toast toast--compact" id="flaky-toast" aria-live="polite">
+        <div class="toast__title">Flaky test detected 🚩</div>
+    </div>
 
-            toggle.addEventListener("click", function () {
-                var next = currentTheme() === "dark" ? "light" : "dark";
-                root.setAttribute("data-theme", next);
-                localStorage.setItem("theme", next);
-            });
-        })();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
