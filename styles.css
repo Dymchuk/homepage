@@ -168,7 +168,10 @@ body {
 
 .skills__text {
     color: var(--secondary-text-color);
-    text-align: justify;
+}
+
+.skills__text:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 /* Experience and additional info styles */
