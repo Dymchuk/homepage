@@ -29,6 +29,13 @@ body {
     justify-content: space-between;
 }
 
+.contact_info_container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: "left avatar right";
+    align-items: center;
+}
+
 .fv {
     display: flex;
     flex-direction: column;
@@ -47,25 +54,6 @@ body {
     border-bottom: 3px solid var(--border-color);
     padding-bottom: 30px;
     margin-bottom: 15px;
-}
-
-@media screen and (max-width: 576px) {
-    .main-info,
-    .contact_info_container {
-        flex-direction: column;
-    }
-
-    .contact_info_container {
-        align-items: center;
-    }
-
-    .contact-info__block:not(:last-child) {
-        margin-bottom: 20px;
-    }
-
-    .experiences {
-        margin-right: 0;
-    }
 }
 
 /* Contact info styles */
@@ -92,14 +80,26 @@ body {
     justify-content: space-between;
 }
 
+.contact-info__block--left {
+    grid-area: left;
+}
+
 .contact-info__block--center {
+    grid-area: avatar;
+    align-items: center;
     justify-content: center;
+}
+
+.contact-info__block--right {
+    grid-area: right;
+    justify-self: end;
 }
 
 .contact-info__item {
     color: var(--secondary-text-color);
     text-decoration: none;
     display: flex;
+    align-items: center;
     justify-content: start;
 }
 
@@ -111,6 +111,7 @@ body {
     margin-right: 10px;
     width: 20px;
     display: flex;
+    align-items: center;
     justify-content: center;
 }
 
@@ -167,7 +168,10 @@ body {
 
 .skills__text {
     color: var(--secondary-text-color);
-    text-align: justify;
+}
+
+.skills__text:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 /* Experience and additional info styles */
@@ -263,4 +267,51 @@ body {
 
 .additional-info__languages-item {
     color: var(--secondary-text-color);
+}
+
+@media screen and (max-width: 576px) {
+    .main-info {
+        flex-direction: column;
+    }
+
+    .contact_info_container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "avatar avatar"
+            "left right";
+        justify-items: start;
+    }
+
+    .contact-info__block--center {
+        justify-self: center;
+         margin-bottom: 20px;
+    }
+
+    .experiences {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contact_info_container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    .contact-info__block--left,
+    .contact-info__block--right {
+        display: contents;
+    }
+
+    .contact-info__block--center {
+        order: -1;
+        margin-bottom: 20px;
+    }
+
+    .contact-info__block--left .contact-info__item:last-child {
+        margin-bottom: 20px;
+    }
 }
